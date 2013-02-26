@@ -70,12 +70,6 @@ Joda (http://joda-time.sourceforge.net/) data types.
         <artifactId>javax.json-api</artifactId>
         <version>1.0-b04</version>
     </dependency>
-    <!--  but probably also should depend on Impl for now -->
-    <dependency>
-        <groupId>org.glassfish</groupId>
-        <artifactId>javax.json</artifactId>
-        <version>1.0-b04</version>
-    </dependency>
     
     <!--  Test Dependencies -->
     <dependency>
@@ -84,6 +78,13 @@ Joda (http://joda-time.sourceforge.net/) data types.
       <version>4.8.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.json</artifactId>
+        <version>1.0-b04</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
