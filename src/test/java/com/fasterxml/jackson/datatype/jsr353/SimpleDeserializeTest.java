@@ -6,7 +6,7 @@ public class SimpleDeserializeTest extends TestBase
 {
     public void testSimpleArray() throws Exception
     {
-        final String JSON = "[1, true, \"foo\"]";
+        final String JSON = "[1,true,\"foo\"]";
         JsonValue v = MAPPER.readValue(JSON, JsonValue.class);
         assertTrue(v instanceof JsonArray);
         JsonArray a = (JsonArray) v;
@@ -18,6 +18,9 @@ public class SimpleDeserializeTest extends TestBase
         // also, should work with explicit type
         JsonArray array = MAPPER.readValue(JSON, JsonArray.class);
         assertEquals(3, array.size());
+
+        // and round-tripping ought to be ok:
+        assertEquals(JSON, serializeAsString(v));
     }
 
     public void testNestedArray() throws Exception
@@ -34,25 +37,46 @@ public class SimpleDeserializeTest extends TestBase
         // and round-tripping ought to be ok:
         assertEquals(JSON, serializeAsString(v));
     }
-    /*
+
     public void testSimpleObject() throws Exception
     {
-        JsonObject ob = objectBuilder()
-                .add("a", 123)
-                .add("b", "Text")
-                .build();
-        // not sure if order is guaranteed but:
-        assertEquals("{\"a\":123,\"b\":\"Text\"}", serializeAsString(ob));
+        final String JSON = "{\"a\":12.5,\"b\":\"Text\"}";
+        JsonValue v = MAPPER.readValue(JSON, JsonValue.class);
+        assertTrue(v instanceof JsonObject);
+        JsonObject ob = (JsonObject) v;
+        assertEquals(2, ob.size());
+
+        assertTrue(ob.get("a") instanceof JsonNumber);
+        assertEquals(12.5, ((JsonNumber) ob.get("a")).doubleValue());
+        assertTrue(ob.get("b") instanceof JsonString);
+        assertEquals("Text", ((JsonString) ob.get("b")).getString());
+
+        // also, should work with explicit type
+        ob = MAPPER.readValue(JSON, JsonObject.class);
+        assertEquals(2, ob.size());
+
+        // and round-tripping ought to be ok:
+        assertEquals(JSON, serializeAsString(v));
     }
 
     public void testNestedObject() throws Exception
     {
-        JsonObject ob = objectBuilder()
-                .add("array", arrayBuilder().add(1).add(2))
-                .add("obj", objectBuilder().add("first", true))
-                .build();
-        // not sure if order is guaranteed but:
-        assertEquals("{\"array\":[1,2],\"obj\":{\"first\":true}}", serializeAsString(ob));
+        final String JSON = "{\"array\":[1,2],\"obj\":{\"first\":true}}";
+        JsonValue v = MAPPER.readValue(JSON, JsonValue.class);
+        assertTrue(v instanceof JsonObject);
+        JsonObject ob = (JsonObject) v;
+        assertEquals(2, ob.size());
+
+        assertTrue(ob.get("array") instanceof JsonArray);
+        assertEquals(2, ((JsonArray) ob.get("array")).size());
+        assertTrue(ob.get("obj") instanceof JsonObject);
+        assertEquals(1, ((JsonObject) ob.get("obj")).size());
+
+        // also, should work with explicit type
+        ob = MAPPER.readValue(JSON, JsonObject.class);
+        assertEquals(2, ob.size());
+
+        // and round-tripping ought to be ok:
+        assertEquals(JSON, serializeAsString(v));
     }
-    */
 }
