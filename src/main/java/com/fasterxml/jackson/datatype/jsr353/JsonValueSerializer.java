@@ -48,22 +48,22 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
             TypeSerializer typeSer)
         throws IOException, JsonProcessingException
     {
+        typeSer.writeTypePrefixForScalar(value, jgen);
         switch (value.getValueType()) {
         case ARRAY:
-            typeSer.writeTypePrefixForArray(value, jgen);
+            jgen.writeStartArray();
             serializeArrayContents((JsonArray) value, jgen, provider);
-            typeSer.writeTypeSuffixForArray(value, jgen);
+            jgen.writeEndArray();
             break;
         case OBJECT:
-            typeSer.writeTypePrefixForObject(value, jgen);
+            jgen.writeStartObject();
             serializeObjectContents((JsonObject) value, jgen, provider);
-            typeSer.writeTypeSuffixForObject(value, jgen);
+            jgen.writeEndObject();
             break;
         default: // value type of some kind (scalar)
-            typeSer.writeTypePrefixForObject(value, jgen);
             serializeScalar(value, jgen, provider);
-            typeSer.writeTypeSuffixForObject(value, jgen);
         }
+        typeSer.writeTypeSuffixForScalar(value, jgen);
     }
 
     /*

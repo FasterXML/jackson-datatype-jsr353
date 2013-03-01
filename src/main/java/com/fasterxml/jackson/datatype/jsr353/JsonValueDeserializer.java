@@ -45,7 +45,8 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
             TypeDeserializer typeDeser)
         throws IOException, JsonProcessingException
     {
-        return typeDeser.deserializeTypedFromAny(jp, ctxt);
+        // we will always serialize using wrapper-array; approximated by claiming it's scalar
+        return typeDeser.deserializeTypedFromScalar(jp, ctxt);
     }
 
     /*
