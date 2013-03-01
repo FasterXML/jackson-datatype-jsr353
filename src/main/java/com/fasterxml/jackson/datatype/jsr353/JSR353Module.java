@@ -5,7 +5,12 @@ import java.util.Collections;
 import javax.json.*;
 import javax.json.spi.JsonProvider;
 
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
+import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.MapType;
 
 public class JSR353Module extends SimpleModule
 {
@@ -13,6 +18,7 @@ public class JSR353Module extends SimpleModule
 
     protected final JsonBuilderFactory _builderFactory;
 
+    @SuppressWarnings("serial")
     public JSR353Module()
     {
         super(PackageVersion.VERSION); //ModuleVersion.instance.version());
@@ -22,14 +28,48 @@ public class JSR353Module extends SimpleModule
 
 //         JsonArrayBuilder arrayBuilder = _builderFactory.createArrayBuilder();
 //         JsonObjectBuilder objectBuilder = _builderFactory.createObjectBuilder();
-        
-        // First Serializers, as they are easier, can use SimpleXxx and they'll match
-        
         // first deserializers
+        final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(_builderFactory);
+        
         addSerializer(JsonValue.class, new JsonValueSerializer());
-//        addDeserializer(JsonArray.class, new DateMidnightDeserializer());
+        setDeserializers(new SimpleDeserializers() {
+            @Override
+            public JsonDeserializer<?> findBeanDeserializer(JavaType type,
+                    DeserializationConfig config, BeanDescription beanDesc)
+                throws JsonMappingException
+            {
+                if (JsonValue.class.isAssignableFrom(type.getRawClass())) {
+                    return jsonValueDeser;
+                }
+                return null;
+            }
 
-        // then serializers:
-//        addSerializer(DateMidnight.class, new DateMidnightSerializer());
+            @Override
+            public JsonDeserializer<?> findCollectionDeserializer(CollectionType type,
+                    DeserializationConfig config, BeanDescription beanDesc,
+                    TypeDeserializer elementTypeDeserializer,
+                    JsonDeserializer<?> elementDeserializer)
+                throws JsonMappingException
+            {
+                if (JsonArray.class.isAssignableFrom(type.getRawClass())) {
+                    return jsonValueDeser;
+                }
+                return null;
+            }
+
+            @Override
+            public JsonDeserializer<?> findMapDeserializer(MapType type,
+                    DeserializationConfig config, BeanDescription beanDesc,
+                    KeyDeserializer keyDeserializer,
+                    TypeDeserializer elementTypeDeserializer,
+                    JsonDeserializer<?> elementDeserializer)
+                throws JsonMappingException
+            {
+                if (JsonObject.class.isAssignableFrom(type.getRawClass())) {
+                    return jsonValueDeser;
+                }
+                return null;
+            }
+        });
     }
 }
