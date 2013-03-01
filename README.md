@@ -1,4 +1,38 @@
-jackson-datatype-jsr353
-=======================
+Datatype module to make Jackson (http://jackson.codehaus.org) 
+recognize `JsonValue` types of JSON API defined in JSR-353 ("JSON-Processing").
 
-Extension module for supporting reading and writing of JSR-353 tree node types using Jackson streaming API
+## Status
+
+Experimental until Jackson 2.2, but very simple and appears to work -- so should be stable by the time JSR-353 is finalized.
+
+## Usage
+
+### Maven dependency
+
+To use module on Maven-based projects, use following dependency:
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr353</artifactId>
+      <version>2.1.4</version>
+    </dependency>    
+
+(or whatever version is most up-to-date at the moment)
+
+### Registering module
+
+
+Like all standard Jackson modules (libraries that implement Module interface), registration is done as follows:
+
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.registerModule(new JSR353Module());
+
+after which functionality is available for all normal Jackson operations:
+you can read JSON as `JsonValue` (or its subtypes), `JsonValues` as JSON, like:
+
+    JsonObject ob = mapper.readValue(JSON, JsonObject.class);
+    mapper.writeValue(new File("stuff.json"), ob);
+
+## More
+
+See [Wiki](jackson-datatype-jsr353/wiki) for more information (javadocs, downloads).
