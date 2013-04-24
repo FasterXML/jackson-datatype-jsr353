@@ -3,7 +3,8 @@ recognize `JsonValue` types of JSON API defined in JSR-353 ("JSON-Processing").
 
 ## Status
 
-Experimental until Jackson 2.2, but very simple and appears to work -- so should be stable by the time JSR-353 is finalized.
+First official version, 2.2.0, was released in April 2013.
+Module is still considered experimental, but should be usable given its simplicity.
 
 ## Usage
 
@@ -14,7 +15,7 @@ To use module on Maven-based projects, use following dependency:
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr353</artifactId>
-      <version>2.1.4</version>
+      <version>2.2.0</version>
     </dependency>    
 
 (or whatever version is most up-to-date at the moment)
