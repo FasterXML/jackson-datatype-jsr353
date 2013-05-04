@@ -1,8 +1,12 @@
 Project: jackson-datatype-jsr353
-Version: 2.2.0 (23-Apr-2013)
+Version: 2.2.1 (04-May-2013)
 
-First official version.
+No functional changes
 
 ------------------------------------------------------------------------
 === History: ===
 ------------------------------------------------------------------------
+
+2.2.0 (23-Apr-2013)
+
+First public release
