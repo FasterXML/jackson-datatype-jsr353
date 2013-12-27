@@ -10,6 +10,7 @@
   <artifactId>jackson-datatype-jsr353</artifactId>
   <name>Jackson-datatype-JSR-353</name>
   <version>2.3.0-SNAPSHOT</version>
+  <packaging>bundle</packaging>
   <description>Add-on module for Jackson (http://jackson.codehaus.org) to support
 working with JSR-353 (JDK Json-processing API) node typesm via data-binding
   </description>
