@@ -9,7 +9,7 @@
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-jsr353</artifactId>
   <name>Jackson-datatype-JSR-353</name>
-  <version>2.3.1-SNAPSHOT</version>
+  <version>2.3.1</version>
   <packaging>bundle</packaging>
   <description>Add-on module for Jackson (http://jackson.codehaus.org) to support
 working with JSR-353 (JDK Json-processing API) node typesm via data-binding
@@ -19,7 +19,7 @@ working with JSR-353 (JDK Json-processing API) node typesm via data-binding
     <connection>scm:git:git@github.com:FasterXML/jackson-datatype-jsr353.git</connection>
     <developerConnection>scm:git:git@github.com:FasterXML/jackson-datatype-jsr353.git</developerConnection>
     <url>http://github.com/FasterXML/jackson-datatype-jsr353</url>
-    <tag>HEAD</tag>
+    <tag>jackson-datatype-jsr353-2.3.1</tag>
   </scm>
   <properties>
     <version.jackson.core>2.3.1</version.jackson.core>
@@ -28,7 +28,13 @@ working with JSR-353 (JDK Json-processing API) node typesm via data-binding
     <osgi.import>com.fasterxml.jackson.core
 ,com.fasterxml.jackson.core.util
 ,com.fasterxml.jackson.databind
-
+,com.fasterxml.jackson.databind.deser.std
+,com.fasterxml.jackson.databind.jsontype
+,com.fasterxml.jackson.databind.module
+,com.fasterxml.jackson.databind.ser.std
+,com.fasterxml.jackson.databind.type
+,javax.json
+,javax.json.spi
     </osgi.import>
     <osgi.export>${project.groupId}.jsr353.*;version=${project.version}
 </osgi.export>
