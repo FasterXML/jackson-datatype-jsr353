@@ -22,7 +22,7 @@ working with JSR-353 (JDK Json-processing API) node typesm via data-binding
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <version.jackson>2.3.1-SNAPSHOT</version.jackson>
+    <version.jackson.core>2.3.1</version.jackson.core>
 
     <!-- Configuration properties for the OSGi maven-bundle-plugin -->
     <osgi.import>com.fasterxml.jackson.core
@@ -42,12 +42,12 @@ working with JSR-353 (JDK Json-processing API) node typesm via data-binding
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>${version.jackson}</version>
+      <version>${version.jackson.core}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${version.jackson}</version>
+      <version>${version.jackson.core}</version>
     </dependency>
 
     <!-- We definitely need at least API -->
