@@ -23,27 +23,32 @@ Module is still considered experimental, but should be usable given its simplici
 
 To use module on Maven-based projects, use following dependency:
 
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr353</artifactId>
-      <version>2.2.0</version>
-    </dependency>    
+```xml
+<dependency>
+  <groupId>com.fasterxml.jackson.datatype</groupId>
+  <artifactId>jackson-datatype-jsr353</artifactId>
+  <version>2.2.0</version>
+</dependency>
+```
 
 (or whatever version is most up-to-date at the moment)
 
 ### Registering module
 
-
 Like all standard Jackson modules (libraries that implement Module interface), registration is done as follows:
 
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.registerModule(new JSR353Module());
+```java
+ObjectMapper mapper = new ObjectMapper();
+mapper.registerModule(new JSR353Module());
+```
 
 after which functionality is available for all normal Jackson operations:
 you can read JSON as `JsonValue` (or its subtypes), `JsonValues` as JSON, like:
 
-    JsonObject ob = mapper.readValue(JSON, JsonObject.class);
-    mapper.writeValue(new File("stuff.json"), ob);
+```java
+JsonObject ob = mapper.readValue(JSON, JsonObject.class);
+mapper.writeValue(new File("stuff.json"), ob);
+```
 
 ## More
 
