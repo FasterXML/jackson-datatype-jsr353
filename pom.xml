@@ -19,10 +19,10 @@ working with JSR-353 (JDK Json-processing API) node typesm via data-binding
     <connection>scm:git:git@github.com:FasterXML/jackson-datatype-jsr353.git</connection>
     <developerConnection>scm:git:git@github.com:FasterXML/jackson-datatype-jsr353.git</developerConnection>
     <url>http://github.com/FasterXML/jackson-datatype-jsr353</url>
-    <tag>jackson-datatype-jsr353-2.3.1</tag>
+    <tag>HEAD</tag>
   </scm>
   <properties>
-    <version.jackson.core>2.3.1</version.jackson.core>
+    <version.jackson.core>2.3.2</version.jackson.core>
 
     <!-- Configuration properties for the OSGi maven-bundle-plugin -->
     <osgi.import>com.fasterxml.jackson.core
