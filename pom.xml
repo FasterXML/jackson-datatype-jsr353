@@ -60,7 +60,7 @@ working with JSR-353 (JDK Json-processing API) node typesm via data-binding
     <dependency>
         <groupId>javax.json</groupId>
         <artifactId>javax.json-api</artifactId>
-        <version>1.0-b06</version>
+        <version>1.0</version>
     </dependency>
     
     <!--  Test Dependencies -->
@@ -73,7 +73,7 @@ working with JSR-353 (JDK Json-processing API) node typesm via data-binding
     <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.json</artifactId>
-        <version>1.0-b06</version>
+        <version>1.0.4</version>
       <scope>test</scope>
     </dependency>
 
