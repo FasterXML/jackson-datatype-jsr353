@@ -14,8 +14,7 @@ JSON content than Oracle's JSR-353 Reference Implementation.
 
 ## Status
 
-First official version, 2.2.0, was released in April 2013.
-Module is still considered experimental, but should be usable given its simplicity.
+As of 2.3 module is considered stable and production ready.
 
 ## Usage
 
@@ -27,7 +26,7 @@ To use module on Maven-based projects, use following dependency:
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-jsr353</artifactId>
-  <version>2.2.0</version>
+  <version>2.4.0</version>
 </dependency>
 ```
 
@@ -52,4 +51,4 @@ mapper.writeValue(new File("stuff.json"), ob);
 
 ## More
 
-See [Wiki](jackson-datatype-jsr353/wiki) for more information (javadocs, downloads).
+See [Wiki](../../wiki) for more information (javadocs, downloads).
