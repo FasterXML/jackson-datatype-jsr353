@@ -4,6 +4,11 @@ Project: jackson-datatype-jsr353
 === Releases ===
 ------------------------------------------------------------------------
 
+2.4.5 (not released yet)
+
+#5: Support conversion of `BinaryNode`, as base64-encoded text
+ (suggested by Gabor B, aborg0@github)
+
 2.4.4 (24-Nov-2014)
 2.4.3 (04-Oct-2014)
 2.4.2 (15-Aug-2014)

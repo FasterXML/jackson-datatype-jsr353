@@ -9,6 +9,7 @@ import javax.json.JsonValue;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonParser.NumberType;
+import com.fasterxml.jackson.core.Base64Variants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -101,6 +102,17 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
             case VALUE_STRING:
                 b.add(name, jp.getText());
                 break;
+            case VALUE_EMBEDDED_OBJECT:
+                {
+                    // 26-Nov-2014, tatu: As per [issue#5], should be able to support
+                    //   binary data as Base64 embedded text
+                    Object ob = jp.getEmbeddedObject();
+                    if (ob instanceof byte[]) {
+                        String b64 = ctxt.getBase64Variant().encode((byte[]) ob, false);                        
+                        b.add(name, b64);
+                        break;
+                    }
+                }
             default:
                 throw ctxt.mappingException(JsonValue.class);
             }

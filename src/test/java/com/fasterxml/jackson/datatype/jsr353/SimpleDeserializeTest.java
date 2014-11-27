@@ -1,6 +1,9 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
 import javax.json.*;
+import javax.json.JsonValue.ValueType;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class SimpleDeserializeTest extends TestBase
 {
@@ -78,5 +81,20 @@ public class SimpleDeserializeTest extends TestBase
 
         // and round-tripping ought to be ok:
         assertEquals(JSON, serializeAsString(v));
+    }
+
+    // for [issue#5]
+    public void testBinaryNode() throws Exception
+    {
+        ObjectNode root = MAPPER.createObjectNode();
+        root.put("b", new byte[1]);
+        JsonValue v = MAPPER.convertValue(root, JsonValue.class);
+        assertNotNull(v);
+        assertEquals(ValueType.OBJECT, v.getValueType());
+        JsonValue v2 = ((javax.json.JsonObject) v).get("b");
+        assertNotNull(v2);
+        assertEquals(ValueType.STRING, v2.getValueType());
+        String str = ((JsonString) v2).getString();
+        assertEquals("AA==", str); // single zero byte
     }
 }

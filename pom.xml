@@ -12,7 +12,7 @@
   <version>2.4.5-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>Add-on module for Jackson (http://jackson.codehaus.org) to support
-working with JSR-353 (JDK Json-processing API) node typesm via data-binding
+working with JSR-353 (JDK Json-processing API) node types via data-binding
   </description>
   <url>https://github.com/FasterXML/jackson</url>
   <scm>
@@ -22,7 +22,7 @@ working with JSR-353 (JDK Json-processing API) node typesm via data-binding
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <version.jackson.core>2.4.4</version.jackson.core>
+    <version.jackson.core>2.4.5-SNAPSHOT</version.jackson.core>
 
     <!-- Configuration properties for the OSGi maven-bundle-plugin -->
     <osgi.import>com.fasterxml.jackson.core
