@@ -14,6 +14,8 @@ JSON content than Oracle's JSR-353 Reference Implementation.
 
 ## Status
 
+[![Build Status](https://travis-ci.org/FasterXML/jackson-datatype-jsr353.svg)](https://travis-ci.org/FasterXML/jackson-datatype-jsr353)
+
 As of 2.3 module is considered stable and production ready.
 
 ## Usage
