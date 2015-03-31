@@ -28,11 +28,27 @@ To use module on Maven-based projects, use following dependency:
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-jsr353</artifactId>
-  <version>2.4.0</version>
+  <version>2.5.2</version>
 </dependency>
 ```
 
 (or whatever version is most up-to-date at the moment)
+
+Also unless you already include a dependency to a JSR-353 implementation (JDK does not ship with one at least with JDK 8
+and prior), you may need to include one. Implementations include:
+
+* [JSR 353 Reference Implementation](https://jsonp.java.net/)
+* [Jackson-javax-json](../../../pgelinas/jackson-javax-json/)
+
+Reference implementation (last updated in 2013) dependency would be:
+
+```xml
+<dependency>
+    <groupId>org.glassfish</groupId>
+    <artifactId>javax.json</artifactId>
+    <version>1.0.4</version>
+</dependency>
+```
 
 ### Registering module
 
