@@ -22,7 +22,7 @@ working with JSR-353 (JDK Json-processing API) node types via data-binding
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <version.jackson.core>2.6.0-rc2</version.jackson.core>
+    <version.jackson.core>2.6.0-rc3</version.jackson.core>
 
     <!-- Configuration properties for the OSGi maven-bundle-plugin -->
     <osgi.import>com.fasterxml.jackson.core
