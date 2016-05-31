@@ -40,7 +40,7 @@ Also unless you already include a dependency to a JSR-353 implementation (JDK do
 and prior), you may need to include one. Implementations include:
 
 * [JSR 353 Reference Implementation](https://jsonp.java.net/)
-* [Jackson-javax-json](../../../pgelinas/jackson-javax-json/)
+* [Jackson-javax-json](https://github.com/pgelinas/jackson-javax-json)
 
 Reference implementation (last updated in 2013) dependency would be:
 
