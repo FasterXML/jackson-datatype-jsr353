@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 public class JsonValueSerializer extends StdSerializer<JsonValue>
 {
+    private static final long serialVersionUID = 1L;
+
     public JsonValueSerializer() {
         super(JsonValue.class);
     }
@@ -24,46 +26,46 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
      */
     
     @Override
-    public void serialize(JsonValue value, JsonGenerator jgen, SerializerProvider provider)
-            throws IOException, JsonGenerationException
+    public void serialize(JsonValue value, JsonGenerator g, SerializerProvider provider)
+        throws IOException
     {
         switch (value.getValueType()) {
         case ARRAY:
-            jgen.writeStartArray();
-            serializeArrayContents((JsonArray) value, jgen, provider);
-            jgen.writeEndArray();
+            g.writeStartArray();
+            serializeArrayContents((JsonArray) value, g, provider);
+            g.writeEndArray();
             break;
         case OBJECT:
-            jgen.writeStartObject();
-            serializeObjectContents((JsonObject) value, jgen, provider);
-            jgen.writeEndObject();
+            g.writeStartObject();
+            serializeObjectContents((JsonObject) value, g, provider);
+            g.writeEndObject();
             break;
         default: // value type of some kind (scalar)
-            serializeScalar(value, jgen, provider);
+            serializeScalar(value, g, provider);
         }
     }
 
     @Override
-    public void serializeWithType(JsonValue value, JsonGenerator jgen, SerializerProvider provider,
+    public void serializeWithType(JsonValue value, JsonGenerator g, SerializerProvider provider,
             TypeSerializer typeSer)
-        throws IOException, JsonProcessingException
+        throws IOException
     {
-        typeSer.writeTypePrefixForScalar(value, jgen);
+        typeSer.writeTypePrefixForScalar(value, g);
         switch (value.getValueType()) {
         case ARRAY:
-            jgen.writeStartArray();
-            serializeArrayContents((JsonArray) value, jgen, provider);
-            jgen.writeEndArray();
+            g.writeStartArray();
+            serializeArrayContents((JsonArray) value, g, provider);
+            g.writeEndArray();
             break;
         case OBJECT:
-            jgen.writeStartObject();
-            serializeObjectContents((JsonObject) value, jgen, provider);
-            jgen.writeEndObject();
+            g.writeStartObject();
+            serializeObjectContents((JsonObject) value, g, provider);
+            g.writeEndObject();
             break;
         default: // value type of some kind (scalar)
-            serializeScalar(value, jgen, provider);
+            serializeScalar(value, g, provider);
         }
-        typeSer.writeTypeSuffixForScalar(value, jgen);
+        typeSer.writeTypeSuffixForScalar(value, g);
     }
 
     /*
@@ -73,34 +75,34 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
      */
 
     protected void serializeScalar(JsonValue value,
-            JsonGenerator jgen, SerializerProvider provider)
-        throws IOException, JsonProcessingException
+            JsonGenerator g, SerializerProvider provider)
+        throws IOException
     {
         switch (value.getValueType()) {
         case FALSE:
-            jgen.writeBoolean(false);
+            g.writeBoolean(false);
             break;
         case NULL: // hmmh. explicit nulls... I guess we may get them
-            jgen.writeNull();
+            g.writeNull();
             break;
         case NUMBER:
             {
                 JsonNumber num = (JsonNumber) value;
                 if (num.isIntegral()) {
-                    jgen.writeNumber(num.longValue());
+                    g.writeNumber(num.longValue());
                 } else {
                     /* 26-Feb-2013, tatu: Apparently no way to know if we need heavy BigDecimal
                      *   or not. Let's err on side of correct-if-slow to avoid losing precision.
                      */
-                    jgen.writeNumber(num.bigDecimalValue());
+                    g.writeNumber(num.bigDecimalValue());
                 }
             }
             break;
         case STRING:
-            jgen.writeString(((JsonString) value).getString());
+            g.writeString(((JsonString) value).getString());
             break;
         case TRUE:
-            jgen.writeBoolean(true);
+            g.writeBoolean(true);
             break;
         default:
             break;
@@ -110,24 +112,24 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
     }
 
     protected void serializeArrayContents(JsonArray values,
-            JsonGenerator jgen, SerializerProvider provider)
-        throws IOException, JsonProcessingException
+            JsonGenerator g, SerializerProvider provider)
+        throws IOException
     {
         if (!values.isEmpty()) {
             for (JsonValue value : values) {
-                serialize(value, jgen, provider);
+                serialize(value, g, provider);
             }
         }
     }
 
     protected void serializeObjectContents(JsonObject ob,
-            JsonGenerator jgen, SerializerProvider provider)
-        throws IOException, JsonProcessingException
+            JsonGenerator g, SerializerProvider provider)
+        throws IOException
     {
         if (!ob.isEmpty()) {
             for (Map.Entry<String, JsonValue> entry : ob.entrySet()) {
-                jgen.writeFieldName(entry.getKey());
-                serialize(entry.getValue(), jgen, provider);
+                g.writeFieldName(entry.getKey());
+                serialize(entry.getValue(), g, provider);
             }
         }
         
