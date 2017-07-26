@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.json.*;
 
 import com.fasterxml.jackson.core.*;
-
+import com.fasterxml.jackson.core.type.WritableTypeId;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -36,7 +36,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
             g.writeEndArray();
             break;
         case OBJECT:
-            g.writeStartObject();
+            g.writeStartObject(value);
             serializeObjectContents((JsonObject) value, g, provider);
             g.writeEndObject();
             break;
@@ -50,22 +50,19 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
             TypeSerializer typeSer)
         throws IOException
     {
-        typeSer.writeTypePrefixForScalar(value, g);
-        switch (value.getValueType()) {
-        case ARRAY:
-            g.writeStartArray();
-            serializeArrayContents((JsonArray) value, g, provider);
-            g.writeEndArray();
-            break;
-        case OBJECT:
-            g.writeStartObject();
-            serializeObjectContents((JsonObject) value, g, provider);
-            g.writeEndObject();
-            break;
-        default: // value type of some kind (scalar)
-            serializeScalar(value, g, provider);
-        }
-        typeSer.writeTypeSuffixForScalar(value, g);
+        g.setCurrentValue(value);
+        // 25-Jul-2017, tatu: This may look wrong, but since we don't really know impl
+        //   classes we need to demote type to generic one, first: and as importantly,
+        //   need to claim that we don't really know shape to use (since that can vary
+        //   a lot). Safest way (and backwards compatible) is to claim it's scalar...
+        //   Not fully correct, but has to work for now.
+        WritableTypeId typeIdDef = typeSer.writeTypePrefix(g,
+                typeSer.typeId(value, JsonValue.class, JsonToken.VALUE_EMBEDDED_OBJECT));
+
+        // And because we claim value is NOT serialized as Structured value, need
+        // to add container markers; so may as well call standard serialize
+        serialize(value, g, provider);
+        typeSer.writeTypeSuffix(g, typeIdDef);
     }
 
     /*
@@ -91,9 +88,8 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
                 if (num.isIntegral()) {
                     g.writeNumber(num.longValue());
                 } else {
-                    /* 26-Feb-2013, tatu: Apparently no way to know if we need heavy BigDecimal
-                     *   or not. Let's err on side of correct-if-slow to avoid losing precision.
-                     */
+                    // 26-Feb-2013, tatu: Apparently no way to know if we need heavy BigDecimal
+                    //   or not. Let's err on side of correct-if-slow to avoid losing precision.
                     g.writeNumber(num.bigDecimalValue());
                 }
             }
@@ -132,6 +128,5 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
                 serialize(entry.getValue(), g, provider);
             }
         }
-        
     }
 }
