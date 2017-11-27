@@ -16,7 +16,7 @@ JSON content than Oracle's JSR-353 Reference Implementation.
 
 [![Build Status](https://travis-ci.org/FasterXML/jackson-datatype-jsr353.svg)](https://travis-ci.org/FasterXML/jackson-datatype-jsr353)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.fasterxml.jackson.datatype/jackson-datatype-jsr353/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.fasterxml.jackson.datatype/jackson-datatype-jsr353/)
-[![Javadoc](https://javadoc-emblem.rhcloud.com/doc/com.fasterxml.jackson.datatype/jackson-datatype-jsr353/badge.svg)](http://www.javadoc.io/doc/com.fasterxml.jackson.datatype/jackson-datatype-jsr353)
+[![Javadoc](https://javadoc.io/badge/com.fasterxml.jackson.datatype/jackson-datatype-jsr353.svg)](http://www.javadoc.io/doc/com.fasterxml.jackson.datatype/jackson-datatype-jsr353)
 
 As of 2.3 module is considered stable and production ready.
 
