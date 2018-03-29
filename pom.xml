@@ -59,8 +59,9 @@ working with JSR-353 (JDK Json-processing API) node types via data-binding
     </dependency>
   </dependencies>
 
-  <!-- 28-Mar-2018, tatu: Try to resolve mess with gpg signing... -->
-  <pluginManagement>
+  <build>
+    <!-- 28-Mar-2018, tatu: Try to resolve mess with gpg signing... -->
+    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -68,9 +69,8 @@ working with JSR-353 (JDK Json-processing API) node types via data-binding
           <version>1.6</version>
         </plugin>
       </plugins>
-  </pluginManagement>
+    </pluginManagement>
 
-  <build>
     <plugins>
       <plugin>
         <!-- Inherited from oss-base. Generate PackageVersion.java.-->
