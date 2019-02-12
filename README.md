@@ -1,4 +1,4 @@
-Datatype module to make [Jackson](../../jackson)
+Datatype module to make [Jackson](../../../jackson)
 recognize `JsonValue` types of JSON API defined in JSR-353 ("JSON-Processing"), so that
 you can read JSON as `JsonValue`s and write `JsonValue`s as JSON as part of normal
 Jackson processing.
