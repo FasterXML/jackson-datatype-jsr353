@@ -30,7 +30,9 @@ public class JSR353Module extends SimpleModule
 //         JsonObjectBuilder objectBuilder = _builderFactory.createObjectBuilder();
         // first deserializers
         final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(_builderFactory);
-        
+        final JsonPatchDeserializer jsonPatchDeser = new JsonPatchDeserializer(jsonValueDeser);
+        final JsonMergePatchDeserializer jsonMergePatchDeser = new JsonMergePatchDeserializer(jsonValueDeser);
+
         addSerializer(JsonValue.class, new JsonValueSerializer());
         setDeserializers(new SimpleDeserializers() {
             @Override
@@ -40,6 +42,14 @@ public class JSR353Module extends SimpleModule
             {
                 if (JsonValue.class.isAssignableFrom(type.getRawClass())) {
                     return jsonValueDeser;
+                }
+
+                if (JsonPatch.class.isAssignableFrom(type.getRawClass())) {
+                    return jsonPatchDeser;
+                }
+
+                if (JsonMergePatch.class.isAssignableFrom(type.getRawClass())) {
+                    return jsonMergePatchDeser;
                 }
                 return null;
             }

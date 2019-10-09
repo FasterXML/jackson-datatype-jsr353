@@ -2,10 +2,7 @@ package com.fasterxml.jackson.datatype.jsr353;
 
 import java.io.IOException;
 
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
+import javax.json.*;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.JsonParser.NumberType;
@@ -53,7 +50,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     /**********************************************************
      */
 
-    protected JsonValue _deserializeObject(JsonParser p, DeserializationContext ctxt)
+    protected JsonObject _deserializeObject(JsonParser p, DeserializationContext ctxt)
             throws IOException, JsonProcessingException
     {
         JsonObjectBuilder b = _builderFactory.createObjectBuilder();
@@ -111,13 +108,13 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     }
                 }
             default:
-                return (JsonValue) ctxt.handleUnexpectedToken(JsonValue.class, p);
+                return (JsonObject) ctxt.handleUnexpectedToken(JsonObject.class, p);
             }
         }
         return b.build();
     }
 
-    protected JsonValue _deserializeArray(JsonParser p, DeserializationContext ctxt)
+    protected JsonArray _deserializeArray(JsonParser p, DeserializationContext ctxt)
             throws IOException, JsonProcessingException
     {
         JsonArrayBuilder b = _builderFactory.createArrayBuilder();
@@ -163,7 +160,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                 b.add(p.getText());
                 break;
             default:
-                return (JsonValue) ctxt.handleUnexpectedToken(JsonValue.class, p);
+                return (JsonArray) ctxt.handleUnexpectedToken(JsonArray.class, p);
             }
         }
         return b.build();
