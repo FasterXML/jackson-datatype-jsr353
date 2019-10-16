@@ -13,8 +13,6 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 public class JsonValueSerializer extends StdSerializer<JsonValue>
 {
-    private static final long serialVersionUID = 1L;
-
     public JsonValueSerializer() {
         super(JsonValue.class);
     }
