@@ -5,13 +5,15 @@ import java.io.IOException;
 import javax.json.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 public abstract class TestBase extends junit.framework.TestCase
 {
     protected final static JSR353Module MODULE = new JSR353Module();
     
-    protected final static ObjectMapper MAPPER = new ObjectMapper()
-        .registerModule(MODULE);
+    protected final static ObjectMapper MAPPER = JsonMapper.builder()
+            .addModule(MODULE)
+            .build();
 
     protected String serializeAsString(JsonValue node) throws IOException {
         return MAPPER.writeValueAsString(node);

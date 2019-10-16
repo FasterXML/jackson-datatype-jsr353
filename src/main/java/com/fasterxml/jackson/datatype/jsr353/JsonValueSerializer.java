@@ -46,7 +46,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
     }
 
     @Override
-    public void serializeWithType(JsonValue value, JsonGenerator g, SerializerProvider provider,
+    public void serializeWithType(JsonValue value, JsonGenerator g, SerializerProvider ctxt,
             TypeSerializer typeSer)
         throws IOException
     {
@@ -56,13 +56,11 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
         //   need to claim that we don't really know shape to use (since that can vary
         //   a lot). Safest way (and backwards compatible) is to claim it's scalar...
         //   Not fully correct, but has to work for now.
-        WritableTypeId typeIdDef = typeSer.writeTypePrefix(g,
+        WritableTypeId typeIdDef = typeSer.writeTypePrefix(g, ctxt,
                 typeSer.typeId(value, JsonValue.class, JsonToken.VALUE_EMBEDDED_OBJECT));
 
-        // And because we claim value is NOT serialized as Structured value, need
-        // to add container markers; so may as well call standard serialize
-        serialize(value, g, provider);
-        typeSer.writeTypeSuffix(g, typeIdDef);
+        serialize(value, g, ctxt);
+        typeSer.writeTypeSuffix(g, ctxt, typeIdDef);
     }
 
     /*

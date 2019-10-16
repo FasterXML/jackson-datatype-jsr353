@@ -15,8 +15,6 @@ import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 
 public class JsonValueDeserializer extends StdDeserializer<JsonValue>
 {
-    private static final long serialVersionUID = 1L;
-
     protected final JsonBuilderFactory _builderFactory;
 
     public JsonValueDeserializer(JsonBuilderFactory bf) {
@@ -28,7 +26,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     public JsonValue deserialize(JsonParser p, DeserializationContext ctxt)
             throws IOException, JsonProcessingException
     {
-        switch (p.getCurrentToken()) {
+        switch (p.currentToken()) {
         case START_OBJECT:
             return _deserializeObject(p, ctxt);
         case START_ARRAY:
@@ -58,7 +56,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     {
         JsonObjectBuilder b = _builderFactory.createObjectBuilder();
         while (p.nextToken() != JsonToken.END_OBJECT) {
-            String name = p.getCurrentName();
+            String name = p.currentName();
             JsonToken t = p.nextToken();
             switch (t) {
             case START_ARRAY:
@@ -111,7 +109,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     }
                 }
             default:
-                return (JsonValue) ctxt.handleUnexpectedToken(JsonValue.class, p);
+                return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
             }
         }
         return b.build();
@@ -163,7 +161,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                 b.add(p.getText());
                 break;
             default:
-                return (JsonValue) ctxt.handleUnexpectedToken(JsonValue.class, p);
+                return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
             }
         }
         return b.build();
@@ -172,11 +170,11 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     protected JsonValue _deserializeScalar(JsonParser p, DeserializationContext ctxt)
             throws IOException, JsonProcessingException
     {
-        switch (p.getCurrentToken()) {
+        switch (p.currentToken()) {
         case VALUE_EMBEDDED_OBJECT:
             // Not sure what to do with it -- could convert byte[] into Base64 encoded
             // if we wanted to... ?
-            return (JsonValue) ctxt.handleUnexpectedToken(JsonValue.class, p);
+            return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
         case VALUE_FALSE:
             return JsonValue.FALSE;
         case VALUE_TRUE:
@@ -214,7 +212,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
 //        case NOT_AVAILABLE:
 //        case START_ARRAY:
 //        case START_OBJECT:
-            return (JsonValue) ctxt.handleUnexpectedToken(JsonValue.class, p);
+            return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
         }
     }
 }
