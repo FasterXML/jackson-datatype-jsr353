@@ -4,6 +4,10 @@ Project: jackson-datatype-jsr353
 === Releases ===
 ------------------------------------------------------------------------
 
+2.11.0 (not yet released)
+
+-
+
 2.10.0 (26-Sep-2019)
 
 * Add JDK9 `module-info.class` using Moditect plugin
