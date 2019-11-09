@@ -70,6 +70,11 @@ public class JSR353Module extends SimpleModule
                 }
                 return null;
             }
+
+            @Override // since 2.11
+            public boolean hasDeserializerFor(Class<?> valueType) {
+                return JsonValue.class.isAssignableFrom(valueType);
+            }
         });
     }
 }
