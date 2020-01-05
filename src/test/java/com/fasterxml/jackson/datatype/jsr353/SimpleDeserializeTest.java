@@ -3,10 +3,13 @@ package com.fasterxml.jackson.datatype.jsr353;
 import javax.json.*;
 import javax.json.JsonValue.ValueType;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class SimpleDeserializeTest extends TestBase
 {
+    private final ObjectMapper MAPPER = newMapper();
+
     public void testSimpleArray() throws Exception
     {
         final String JSON = "[1,true,\"foo\"]";

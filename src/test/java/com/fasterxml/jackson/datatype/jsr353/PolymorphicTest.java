@@ -3,6 +3,7 @@ package com.fasterxml.jackson.datatype.jsr353;
 import javax.json.*;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PolymorphicTest extends TestBase
 {
@@ -13,6 +14,8 @@ public class PolymorphicTest extends TestBase
         public Wrapper() { }
         public Wrapper(Object o) { w = o; }
     }
+
+    private final ObjectMapper MAPPER = newMapper();
     
     public void testObjectAsTyped() throws Exception
     {
