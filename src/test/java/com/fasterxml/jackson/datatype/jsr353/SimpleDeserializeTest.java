@@ -1,5 +1,6 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import javax.json.*;
 import javax.json.JsonValue.ValueType;
 
@@ -96,5 +97,20 @@ public class SimpleDeserializeTest extends TestBase
         assertEquals(ValueType.STRING, v2.getValueType());
         String str = ((JsonString) v2).getString();
         assertEquals("AA==", str); // single zero byte
+    }
+
+    public void testNullNode() throws Exception
+    {
+        final JsonMapper mapper = mapperBuilder().build();
+
+        final String serializedNull = mapper.writeValueAsString(JsonValue.NULL);
+
+        assertEquals("null", serializedNull);
+
+        final JsonValue deserializedNull = mapper.readValue(serializedNull, JsonValue.class);
+
+        assertNotNull(deserializedNull);
+
+        assertEquals(JsonValue.NULL, deserializedNull);
     }
 }

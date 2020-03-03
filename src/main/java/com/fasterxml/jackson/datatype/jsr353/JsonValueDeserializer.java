@@ -1,7 +1,9 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import java.io.IOException;
 
+import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObjectBuilder;
@@ -36,6 +38,11 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
         default:
             return _deserializeScalar(p, ctxt);
         }
+    }
+
+    @Override
+    public Object getNullValue(final DeserializationContext ctxt){
+        return JsonValue.NULL;
     }
 
     @Override
