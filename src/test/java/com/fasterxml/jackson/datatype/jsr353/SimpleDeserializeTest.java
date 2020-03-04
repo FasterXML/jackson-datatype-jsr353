@@ -86,7 +86,7 @@ public class SimpleDeserializeTest extends TestBase
         assertEquals(JSON, serializeAsString(v));
     }
 
-    // for [issue#5]
+    // for [datatype-jsr353#5]
     public void testBinaryNode() throws Exception
     {
         ObjectNode root = MAPPER.createObjectNode();
@@ -99,5 +99,14 @@ public class SimpleDeserializeTest extends TestBase
         assertEquals(ValueType.STRING, v2.getValueType());
         String str = ((JsonString) v2).getString();
         assertEquals("AA==", str); // single zero byte
+    }
+
+    // for [datatype-jsr353#16]
+    public void testNullNode() throws Exception
+    {
+        final String serializedNull = MAPPER.writeValueAsString(JsonValue.NULL);
+        assertEquals("null", serializedNull);
+        final JsonValue deserializedNull = MAPPER.readValue(serializedNull, JsonValue.class);
+        assertEquals(JsonValue.NULL, deserializedNull);
     }
 }
