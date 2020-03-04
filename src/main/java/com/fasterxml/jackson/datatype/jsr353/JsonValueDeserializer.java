@@ -1,9 +1,7 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import java.io.IOException;
 
-import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObjectBuilder;
@@ -26,7 +24,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     
     @Override
     public JsonValue deserialize(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException
+        throws IOException
     {
         switch (p.currentToken()) {
         case START_OBJECT:
@@ -45,8 +43,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
 
     @Override
     public Object deserializeWithType(JsonParser p, DeserializationContext ctxt,
-            TypeDeserializer typeDeser)
-        throws IOException, JsonProcessingException
+            TypeDeserializer typeDeser) throws IOException
     {
         // we will always serialize using wrapper-array; approximated by claiming it's scalar
         return typeDeser.deserializeTypedFromScalar(p, ctxt);
@@ -59,7 +56,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
      */
 
     protected JsonValue _deserializeObject(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException
+        throws IOException
     {
         JsonObjectBuilder b = _builderFactory.createObjectBuilder();
         while (p.nextToken() != JsonToken.END_OBJECT) {
@@ -123,7 +120,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     protected JsonValue _deserializeArray(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException
+        throws IOException
     {
         JsonArrayBuilder b = _builderFactory.createArrayBuilder();
         JsonToken t;
@@ -175,7 +172,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     protected JsonValue _deserializeScalar(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException
+        throws IOException
     {
         switch (p.currentToken()) {
         case VALUE_EMBEDDED_OBJECT:

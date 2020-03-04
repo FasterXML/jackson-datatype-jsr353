@@ -8,6 +8,11 @@ Project: jackson-datatype-jsr353
 
 -
 
+2.10.4 (not yet released)
+
+#16: Null being deserialized as null literal instead of JsonValue.NULL
+ (reported, fix contributed by Marcos P)
+
 2.10.3 (03-Mar-2020)
 2.10.2 (05-Jan-2020)
 2.10.1 (09-Nov-2019)
