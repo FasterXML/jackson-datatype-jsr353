@@ -4,6 +4,21 @@ Project: jackson-datatype-jsr353
 === Releases ===
 ------------------------------------------------------------------------
 
+2.11.0 (not yet released)
+
+-
+
+2.10.4 (not yet released)
+
+#16: Null being deserialized as null literal instead of JsonValue.NULL
+ (reported, fix contributed by Marcos P)
+
+2.10.3 (03-Mar-2020)
+2.10.2 (05-Jan-2020)
+2.10.1 (09-Nov-2019)
+
+No changes since 2.10.0
+
 2.10.0 (26-Sep-2019)
 
 * Add JDK9 `module-info.class` using Moditect plugin
@@ -21,6 +36,11 @@ Project: jackson-datatype-jsr353
 
 No changes since 2.8.
 
+2.8.11 (24-Dec-2017)
+2.8.10 (24-Aug-2017)
+2.8.9 (12-Jun-2017)
+2.8.8 (05-Apr-2017)
+2.8.7 (21-Feb-2017)
 2.8.6 (12-Jan-2017)
 2.8.5 (14-Nov-2016)
 2.8.4 (14-Oct-2016)

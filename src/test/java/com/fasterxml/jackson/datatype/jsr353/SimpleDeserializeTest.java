@@ -3,10 +3,13 @@ package com.fasterxml.jackson.datatype.jsr353;
 import javax.json.*;
 import javax.json.JsonValue.ValueType;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class SimpleDeserializeTest extends TestBase
 {
+    private final ObjectMapper MAPPER = newMapper();
+
     public void testSimpleArray() throws Exception
     {
         final String JSON = "[1,true,\"foo\"]";
@@ -83,7 +86,7 @@ public class SimpleDeserializeTest extends TestBase
         assertEquals(JSON, serializeAsString(v));
     }
 
-    // for [issue#5]
+    // for [datatype-jsr353#5]
     public void testBinaryNode() throws Exception
     {
         ObjectNode root = MAPPER.createObjectNode();
@@ -96,5 +99,14 @@ public class SimpleDeserializeTest extends TestBase
         assertEquals(ValueType.STRING, v2.getValueType());
         String str = ((JsonString) v2).getString();
         assertEquals("AA==", str); // single zero byte
+    }
+
+    // for [datatype-jsr353#16]
+    public void testNullNode() throws Exception
+    {
+        final String serializedNull = MAPPER.writeValueAsString(JsonValue.NULL);
+        assertEquals("null", serializedNull);
+        final JsonValue deserializedNull = MAPPER.readValue(serializedNull, JsonValue.class);
+        assertEquals(JsonValue.NULL, deserializedNull);
     }
 }

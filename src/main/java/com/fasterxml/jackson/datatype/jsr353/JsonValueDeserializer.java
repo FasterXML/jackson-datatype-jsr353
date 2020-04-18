@@ -2,10 +2,16 @@ package com.fasterxml.jackson.datatype.jsr353;
 
 import java.io.IOException;
 
-import javax.json.*;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 
-import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonParser.NumberType;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
@@ -20,10 +26,10 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
         super(JsonValue.class);
         _builderFactory = bf;
     }
-    
+
     @Override
     public JsonValue deserialize(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException
+        throws IOException
     {
         switch (p.getCurrentToken()) {
         case START_OBJECT:
@@ -36,9 +42,13 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     @Override
+    public JsonValue getNullValue(final DeserializationContext ctxt) {
+        return JsonValue.NULL;
+    }
+
+    @Override
     public Object deserializeWithType(JsonParser p, DeserializationContext ctxt,
-            TypeDeserializer typeDeser)
-        throws IOException, JsonProcessingException
+            TypeDeserializer typeDeser) throws IOException
     {
         // we will always serialize using wrapper-array; approximated by claiming it's scalar
         return typeDeser.deserializeTypedFromScalar(p, ctxt);
@@ -51,7 +61,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
      */
 
     protected JsonObject _deserializeObject(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException
+        throws IOException
     {
         JsonObjectBuilder b = _builderFactory.createObjectBuilder();
         while (p.nextToken() != JsonToken.END_OBJECT) {
@@ -102,7 +112,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     //   binary data as Base64 embedded text
                     Object ob = p.getEmbeddedObject();
                     if (ob instanceof byte[]) {
-                        String b64 = ctxt.getBase64Variant().encode((byte[]) ob, false);                        
+                        String b64 = ctxt.getBase64Variant().encode((byte[]) ob, false);
                         b.add(name, b64);
                         break;
                     }
@@ -115,7 +125,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     protected JsonArray _deserializeArray(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException
+        throws IOException
     {
         JsonArrayBuilder b = _builderFactory.createArrayBuilder();
         JsonToken t;
@@ -167,7 +177,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     protected JsonValue _deserializeScalar(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException
+        throws IOException
     {
         switch (p.getCurrentToken()) {
         case VALUE_EMBEDDED_OBJECT:
