@@ -6,7 +6,7 @@ import javax.json.JsonValue.ValueType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class SimpleDeserializeTest extends TestBase
+public class JsonValueDeserializationTest extends TestBase
 {
     private final ObjectMapper MAPPER = newMapper();
 

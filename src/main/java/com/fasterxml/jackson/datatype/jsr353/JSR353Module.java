@@ -16,6 +16,8 @@ public class JSR353Module extends SimpleModule {
 
     protected final JsonBuilderFactory _builderFactory;
     protected final JsonValueDeserializer _jsonValueDeser;
+    protected final JsonPatchDeserializer _jsonPatchDeser;
+    protected final JsonMergePatchDeserializer _jsonMergePatchDeser;
 
     @SuppressWarnings("serial")
     public JSR353Module() {
@@ -24,6 +26,8 @@ public class JSR353Module extends SimpleModule {
         JsonProvider jp = JsonProvider.provider();
         _builderFactory = jp.createBuilderFactory(Collections.<String, Object>emptyMap());
         _jsonValueDeser = new JsonValueDeserializer(_builderFactory);
+        _jsonPatchDeser = new JsonPatchDeserializer(_jsonValueDeser);
+        _jsonMergePatchDeser = new JsonMergePatchDeserializer(_jsonValueDeser);
 
         addSerializer(JsonValue.class, new JsonValueSerializer());
         setDeserializers(new SimpleDeserializers() {
@@ -35,6 +39,12 @@ public class JSR353Module extends SimpleModule {
             ) {
                 if (JsonValue.class.isAssignableFrom(type.getRawClass())) {
                     return _jsonValueDeser;
+                }
+                if (JsonPatch.class.isAssignableFrom(type.getRawClass())) {
+                    return _jsonPatchDeser;
+                }
+                if (JsonMergePatch.class.isAssignableFrom(type.getRawClass())) {
+                    return _jsonMergePatchDeser;
                 }
                 return null;
             }
@@ -70,7 +80,9 @@ public class JSR353Module extends SimpleModule {
 
             @Override // since 2.11
             public boolean hasDeserializerFor(DeserializationConfig config, Class<?> valueType) {
-                return JsonValue.class.isAssignableFrom(valueType);
+                return JsonValue.class.isAssignableFrom(valueType) ||
+                        JsonPatch.class.isAssignableFrom(valueType) ||
+                        JsonMergePatch.class.isAssignableFrom(valueType);
             }
         });
     }
