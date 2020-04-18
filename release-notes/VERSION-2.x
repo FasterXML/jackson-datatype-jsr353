@@ -6,7 +6,7 @@ Project: jackson-datatype-jsr353
 
 2.11.0 (not yet released)
 
--
+- Update `javax.json` dependencies from 1.0 to 1.1.4
 
 2.10.4 (not yet released)
 
