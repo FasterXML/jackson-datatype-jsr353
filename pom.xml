@@ -8,13 +8,12 @@
   </parent>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-jsr353</artifactId>
-  <name>Jackson-datatype-JSR-353</name>
+  <name>Jackson datatype: JSR-353</name>
   <version>3.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <description>Add-on module for Jackson (http://jackson.codehaus.org) to support
-working with JSR-353 (JDK Json-processing API) node types via data-binding
-  </description>
-  <url>https://github.com/FasterXML/jackson</url>
+  <description>Add-on module for Jackson (http://github.com/FasterXML/jackson) to support
+ working with JSR-353 (JSON-P) node types via data-binding</description>
+  <url>https://github.com/FasterXML/jackson-datatype-jsr353</url>
   <scm>
     <connection>scm:git:git@github.com:FasterXML/jackson-datatype-jsr353.git</connection>
     <developerConnection>scm:git:git@github.com:FasterXML/jackson-datatype-jsr353.git</developerConnection>
