@@ -1,10 +1,5 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
-import java.util.Collections;
-
-import javax.json.*;
-import javax.json.spi.JsonProvider;
-
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -12,69 +7,82 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 
-public class JSR353Module extends SimpleModule
-{
+import javax.json.*;
+import javax.json.spi.JsonProvider;
+import java.util.Collections;
+
+public class JSR353Module extends SimpleModule {
     private static final long serialVersionUID = 1L;
 
     protected final JsonBuilderFactory _builderFactory;
+    protected final JsonValueDeserializer _jsonValueDeser;
+    protected final JsonPatchDeserializer _jsonPatchDeser;
+    protected final JsonMergePatchDeserializer _jsonMergePatchDeser;
 
     @SuppressWarnings("serial")
-    public JSR353Module()
-    {
+    public JSR353Module() {
         super(PackageVersion.VERSION); //ModuleVersion.instance.version());
 
         JsonProvider jp = JsonProvider.provider();
-        _builderFactory = jp.createBuilderFactory(Collections.<String,Object>emptyMap());
+        _builderFactory = jp.createBuilderFactory(Collections.<String, Object>emptyMap());
+        _jsonValueDeser = new JsonValueDeserializer(_builderFactory);
+        _jsonPatchDeser = new JsonPatchDeserializer(_jsonValueDeser);
+        _jsonMergePatchDeser = new JsonMergePatchDeserializer(_jsonValueDeser);
 
-//         JsonArrayBuilder arrayBuilder = _builderFactory.createArrayBuilder();
-//         JsonObjectBuilder objectBuilder = _builderFactory.createObjectBuilder();
-        // first deserializers
-        final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(_builderFactory);
-        
         addSerializer(JsonValue.class, new JsonValueSerializer());
         setDeserializers(new SimpleDeserializers() {
             @Override
-            public JsonDeserializer<?> findBeanDeserializer(JavaType type,
-                    DeserializationConfig config, BeanDescription beanDesc)
-                throws JsonMappingException
-            {
+            public JsonDeserializer<?> findBeanDeserializer(
+                    JavaType type,
+                    DeserializationConfig config,
+                    BeanDescription beanDesc
+            ) {
                 if (JsonValue.class.isAssignableFrom(type.getRawClass())) {
-                    return jsonValueDeser;
+                    return _jsonValueDeser;
+                }
+                if (JsonPatch.class.isAssignableFrom(type.getRawClass())) {
+                    return _jsonPatchDeser;
+                }
+                if (JsonMergePatch.class.isAssignableFrom(type.getRawClass())) {
+                    return _jsonMergePatchDeser;
                 }
                 return null;
             }
 
             @Override
-            public JsonDeserializer<?> findCollectionDeserializer(CollectionType type,
-                    DeserializationConfig config, BeanDescription beanDesc,
+            public JsonDeserializer<?> findCollectionDeserializer(
+                    CollectionType type,
+                    DeserializationConfig config,
+                    BeanDescription beanDesc,
                     TypeDeserializer elementTypeDeserializer,
-                    JsonDeserializer<?> elementDeserializer)
-                throws JsonMappingException
-            {
+                    JsonDeserializer<?> elementDeserializer
+            ) {
                 if (JsonArray.class.isAssignableFrom(type.getRawClass())) {
-                    return jsonValueDeser;
+                    return _jsonValueDeser;
                 }
                 return null;
             }
 
             @Override
-            public JsonDeserializer<?> findMapDeserializer(MapType type,
-                    DeserializationConfig config, BeanDescription beanDesc,
+            public JsonDeserializer<?> findMapDeserializer(
+                    MapType type,
+                    DeserializationConfig config,
+                    BeanDescription beanDesc,
                     KeyDeserializer keyDeserializer,
                     TypeDeserializer elementTypeDeserializer,
-                    JsonDeserializer<?> elementDeserializer)
-                throws JsonMappingException
-            {
+                    JsonDeserializer<?> elementDeserializer
+            ) {
                 if (JsonObject.class.isAssignableFrom(type.getRawClass())) {
-                    return jsonValueDeser;
+                    return _jsonValueDeser;
                 }
                 return null;
             }
 
             @Override // since 2.11
-            public boolean hasDeserializerFor(DeserializationConfig config,
-                    Class<?> valueType) {
-                return JsonValue.class.isAssignableFrom(valueType);
+            public boolean hasDeserializerFor(DeserializationConfig config, Class<?> valueType) {
+                return JsonValue.class.isAssignableFrom(valueType) ||
+                        JsonPatch.class.isAssignableFrom(valueType) ||
+                        JsonMergePatch.class.isAssignableFrom(valueType);
             }
         });
     }

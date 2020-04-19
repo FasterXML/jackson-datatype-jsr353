@@ -19,7 +19,7 @@ reading and writing JSON content than Oracle's JSR-353 Reference Implementation.
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.fasterxml.jackson.datatype/jackson-datatype-jsr353/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.fasterxml.jackson.datatype/jackson-datatype-jsr353/)
 [![Javadoc](https://javadoc.io/badge/com.fasterxml.jackson.datatype/jackson-datatype-jsr353.svg)](http://www.javadoc.io/doc/com.fasterxml.jackson.datatype/jackson-datatype-jsr353)
 
-As of 2.3 module is considered stable and production ready.
+This module has been considered stable and production ready since version 2.3
 
 ## Usage
 
@@ -31,7 +31,7 @@ To use module on Maven-based projects, use following dependency:
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-jsr353</artifactId>
-  <version>2.9.0</version>
+  <version>2.10.0</version>
 </dependency>
 ```
 
@@ -43,13 +43,14 @@ and prior), you may need to include one. Implementations include:
 * [JSR 353 Reference Implementation](https://jsonp.java.net/)
 * [Jackson-javax-json](https://github.com/pgelinas/jackson-javax-json)
 
-Reference implementation (last updated in 2013) dependency would be:
+Reference implementation dependency would be:
 
 ```xml
 <dependency>
     <groupId>org.glassfish</groupId>
     <artifactId>javax.json</artifactId>
-    <version>1.0.4</version>
+    <!-- for versions up to 2.10.x, 1.0.4 or above may be used; 2.11 will require 1.1 or above
+    <version>1.1</version>
 </dependency>
 ```
 
