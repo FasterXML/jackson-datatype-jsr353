@@ -49,7 +49,7 @@ public class JsonPatchDeserializationTest extends TestBase {
         assertThat(patchedPerson, is(new Person("Json", "Smith")));
     }
 
-    private static class Person {
+    static class Person {
         private String name;
         private String lastName;
 
