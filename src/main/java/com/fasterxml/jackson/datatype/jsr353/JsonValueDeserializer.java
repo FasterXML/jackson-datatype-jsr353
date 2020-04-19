@@ -40,11 +40,10 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     @Override
-    public Object deserializeWithType(
-            JsonParser p,
-            DeserializationContext ctxt,
-            TypeDeserializer typeDeser
-    ) throws IOException {
+    public Object deserializeWithType(JsonParser p,
+            DeserializationContext ctxt, TypeDeserializer typeDeser)
+        throws IOException
+    {
         // we will always serialize using wrapper-array; approximated by claiming it's scalar
         return typeDeser.deserializeTypedFromScalar(p, ctxt);
     }
@@ -55,7 +54,9 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     /**********************************************************
      */
 
-    protected JsonObject _deserializeObject(JsonParser p, DeserializationContext ctxt) throws IOException {
+    protected JsonObject _deserializeObject(JsonParser p, DeserializationContext ctxt)
+        throws IOException
+    {
         JsonObjectBuilder b = _builderFactory.createObjectBuilder();
         while (p.nextToken() != JsonToken.END_OBJECT) {
             String name = p.currentName();
@@ -116,7 +117,9 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
         return b.build();
     }
 
-    protected JsonArray _deserializeArray(JsonParser p, DeserializationContext ctxt) throws IOException {
+    protected JsonArray _deserializeArray(JsonParser p, DeserializationContext ctxt)
+            throws IOException
+    {
         JsonArrayBuilder b = _builderFactory.createArrayBuilder();
         JsonToken t;
         while ((t = p.nextToken()) != JsonToken.END_ARRAY) {
@@ -189,7 +192,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                 }
                 return b.add(p.getDoubleValue()).build().get(0);
             }
-            case VALUE_NUMBER_INT:
+	case VALUE_NUMBER_INT:
                 // very cumbersome... but has to be done
             {
                 JsonArrayBuilder b = _builderFactory.createArrayBuilder();
@@ -202,16 +205,16 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                         return b.add(p.getBigIntegerValue()).build().get(0);
                 }
             }
-            case VALUE_STRING:
-                return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
-            default: // errors, should never get here
+	case VALUE_STRING:
+	    return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
+	default: // errors, should never get here
 //        case END_ARRAY:
 //        case END_OBJECT:
 //        case FIELD_NAME:
 //        case NOT_AVAILABLE:
 //        case START_ARRAY:
 //        case START_OBJECT:
-                return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
+	    return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
         }
     }
 }
