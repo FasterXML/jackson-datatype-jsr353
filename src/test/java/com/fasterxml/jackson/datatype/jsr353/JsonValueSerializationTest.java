@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import javax.json.*;
 
-public class SimpleSerializeTest extends TestBase
+public class JsonValueSerializationTest extends TestBase
 {
     public void testSimpleArray() throws Exception
     {

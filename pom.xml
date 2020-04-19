@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion> 
+  <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.fasterxml.jackson</groupId>
     <artifactId>jackson-base</artifactId>
@@ -44,7 +44,7 @@ working with JSR-353 (JDK Json-processing API) node types via data-binding
         <artifactId>javax.json-api</artifactId>
         <version>1.1.4</version>
     </dependency>
-    
+
     <!-- and for tests can use the RI -->
     <dependency>
         <groupId>org.glassfish</groupId>
