@@ -6,6 +6,8 @@ Project: jackson-datatype-jsr353
 
 2.11.0 (not yet released)
 
+#13: Support for `JsonPatch` and `JsonMergePatch` defined in JSON-P 1.1
+ (contributed by Michał R)
 - Update `javax.json` dependencies from 1.0 to 1.1.4
 
 2.10.4 (not yet released)
