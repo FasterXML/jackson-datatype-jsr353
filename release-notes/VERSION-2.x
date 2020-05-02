@@ -10,7 +10,7 @@ Project: jackson-datatype-jsr353
  (contributed by Michał R)
 - Update `javax.json` dependencies from 1.0 to 1.1.4
 
-2.10.4 (not yet released)
+2.10.4 (03-May-2020)
 
 #16: Null being deserialized as null literal instead of JsonValue.NULL
  (reported, fix contributed by Marcos P)
