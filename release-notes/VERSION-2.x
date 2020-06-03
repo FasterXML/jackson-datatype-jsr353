@@ -4,6 +4,11 @@ Project: jackson-datatype-jsr353
 === Releases ===
 ------------------------------------------------------------------------
 
+2.10.5 (not yet released)
+
+#18: revert #16 as it can cause issues if target type is `JsonObject`
+ (reported by sithmein@github)
+
 2.10.4 (03-May-2020)
 
 #16: Null being deserialized as null literal instead of JsonValue.NULL

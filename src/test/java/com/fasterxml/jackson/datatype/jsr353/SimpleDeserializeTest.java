@@ -99,6 +99,8 @@ public class SimpleDeserializeTest extends TestBase
     }
 
     // for [datatype-jsr353#16]
+    // 02-Jun-2020, tatu: Alas, as per [#18], can not do quite like so...
+/*
     public void testNullNode() throws Exception
     {
         final String serializedNull = MAPPER.writeValueAsString(JsonValue.NULL);
@@ -106,4 +108,5 @@ public class SimpleDeserializeTest extends TestBase
         final JsonValue deserializedNull = MAPPER.readValue(serializedNull, JsonValue.class);
         assertEquals(JsonValue.NULL, deserializedNull);
     }
+    */
 }
