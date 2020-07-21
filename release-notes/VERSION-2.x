@@ -4,7 +4,7 @@ Project: jackson-datatype-jsr353
 === Releases ===
 ------------------------------------------------------------------------
 
-2.10.5 (not yet released)
+2.10.5 (21-Jul-2020)
 
 #18: revert #16 as it can cause issues if target type is `JsonObject`
  (reported by sithmein@github)
