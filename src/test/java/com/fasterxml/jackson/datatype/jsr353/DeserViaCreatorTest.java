@@ -21,8 +21,7 @@ public class DeserViaCreatorTest extends TestBase
 
     public void testCreatorDeser() throws Exception
     {
-        final ObjectMapper mapper = new ObjectMapper()
-                .registerModule(MODULE);
+        final ObjectMapper mapper = newMapper();
         Pojo p = mapper.readerFor(Pojo.class)
             .readValue( "{\"s\": \"String\", \"o\": { \"a\": 1, \"b\": \"2\" } }");
         assertNotNull(p);
