@@ -10,6 +10,11 @@ Project: jackson-datatype-jsr353
  (contributed by Michał R)
 - Update `javax.json` dependencies from 1.0 to 1.1.4
 
+2.10.5 (21-Jul-2020)
+
+#18: revert #16 as it can cause issues if target type is `JsonObject`
+ (reported by sithmein@github)
+
 2.10.4 (03-May-2020)
 
 #16: Null being deserialized as null literal instead of JsonValue.NULL

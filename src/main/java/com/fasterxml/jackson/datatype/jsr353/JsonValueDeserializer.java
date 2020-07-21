@@ -35,10 +35,13 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
         }
     }
 
+    // 02-Jun-2020, tatu: Alas, as per [#18], can not do quite like so...
+    /*
     @Override
     public JsonValue getNullValue(final DeserializationContext ctxt) {
         return JsonValue.NULL;
     }
+    */
 
     @Override
     public Object deserializeWithType(JsonParser p,
